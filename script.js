@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const clearCompleted = document.querySelector('.clear');
   const themeToggle = document.querySelector('.theme-toggle');
 
-  // Theme toggle
   let isDarkMode = localStorage.getItem('darkMode') === 'true';
 
   function toggleTheme() {
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     themeToggle.src = isDarkMode ? 'images/icon-sun.svg' : 'images/icon-moon.svg';
   }
 
-  // Initialize theme
   if (isDarkMode) {
     document.body.classList.add('dark');
     themeToggle.src = 'images/icon-sun.svg';
@@ -24,13 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   themeToggle.addEventListener('click', toggleTheme);
 
-  // Update items count
   function updateItemsCount() {
     const activeItems = document.querySelectorAll('.todoitems li:not(.completed)').length;
     itemsLeft.textContent = `${activeItems} items left`;
   }
 
-  // Function to create a new todo item
   function createNewTodoItem(text) {
     const li = document.createElement('li');
     li.innerHTML = `
@@ -57,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
     return li;
   }
 
-  // Add new todo
   input.addEventListener('keypress', function(e) {
     if (e.key === 'Enter' && input.value.trim()) {
       const newTodo = createNewTodoItem(input.value.trim());
@@ -67,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Handle existing todo checkboxes and add delete buttons
   document.querySelectorAll('.todoitems li').forEach(item => {
     const checkbox = item.querySelector('input[type="checkbox"]');
     checkbox.addEventListener('change', function() {
@@ -87,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupDragAndDrop(item);
   });
 
-  // Filter todos
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -106,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Clear completed
   clearCompleted.addEventListener('click', function() {
     document.querySelectorAll('.todoitems li.completed').forEach(item => {
       item.remove();
@@ -114,10 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateItemsCount();
   });
 
-  // Initialize items count
   updateItemsCount();
 
-  // Drag and drop functionality
   function setupDragAndDrop(item) {
     item.addEventListener('dragstart', function() {
       this.classList.add('dragging');
@@ -144,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Setup drag and drop for existing items (already called)
   document.querySelectorAll('.todoitems li').forEach(item => {
    item.setAttribute('draggable', true);
      setupDragAndDrop(item);
